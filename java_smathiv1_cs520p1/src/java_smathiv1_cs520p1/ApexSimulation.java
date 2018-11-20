@@ -132,7 +132,7 @@ public class ApexSimulation {
 		else
 			sArray.add(info);
 
-		List<String> pipelineStages = Arrays.asList("FETCH", "D/RF", "Exe-IntFU", "Mem", "WB");
+		List<String> pipelineStages = Arrays.asList("FETCH", "D/RF", "EX", "Mem", "WB");
 		int cycle = 0;
 		for (Map<String, PipelineStage> stageInfo : sArray) {
 			System.out.println("\nCycle: " +  (cycle + 1) + "\n");
@@ -327,7 +327,7 @@ public class ApexSimulation {
 				literalVal = Integer.parseInt(instArr.get(3).substring(1));
 			else
 				literalVal = 0;
-		} else if (instName.equalsIgnoreCase("LOAD") || instName.equalsIgnoreCase("JAL")) {
+		} else if (instName.equalsIgnoreCase("LOAD")) {
 			destRegister = Integer.parseInt(instArr.get(1).substring(1));
 			srcRegisterAddrs.add(Integer.parseInt(instArr.get(2).substring(1)));
 			if (instArr.size() == 4)
@@ -712,7 +712,7 @@ public class ApexSimulation {
 					fetchStage.getOutputInstruction(), fetchStage.isStalled()));
 			stageInfo.put("D/RF", new PipelineStage(decodeRFStage.getInputInstruction(),
 					decodeRFStage.getOutputInstruction(), decodeRFStage.isStalled()));
-			stageInfo.put("Exe-IntFU", new PipelineStage(integerFU.getInputInstruction(),
+			stageInfo.put("EX", new PipelineStage(integerFU.getInputInstruction(),
 					integerFU.getOutputInstruction(), integerFU.isStalled()));
 			stageInfo.put("Mem", new PipelineStage(memStage.getInputInstruction(), memStage.getOutputInstruction(),
 					memStage.isStalled()));
